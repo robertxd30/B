@@ -8,6 +8,8 @@ const axios = require('axios');
 
 const filePath = './btcseed.txt';
 const outputfilePath = './btcseedoutput.txt';
+const addressoutputfilePath = './btcseedaddresssoutput.txt';
+
 
 const fileStream = fs.createReadStream(filePath);
 
@@ -42,8 +44,8 @@ async function run() {
             const url = 'https://blockchain.info/q/addressbalance/' + address;
             let response = await axios.get(url)
 
-            fs.appendFileSync(outputfilePath,line + "  " + response.data.toString() + "\n");
-
+            fs.appendFileSync(outputfilePath, line + "  " + response.data.toString() + "\n");
+            fs.appendFileSync(addressoutputfilePath, address + "\n");
             console.log(response.data)
         } catch (err) {
             console.error('Error writing to file:', err);
